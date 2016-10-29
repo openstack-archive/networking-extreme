@@ -1,3 +1,4 @@
+"""ExtremeNet ML2 Mech Config ."""
 # Copyright 2016 Extreme Networks.
 #
 # All Rights Reserved.
@@ -17,20 +18,21 @@
 from oslo_config import cfg
 
 EXTREME_MECHDRIVER_OPTS = [
-    cfg.StrOpt('netsight_ip', default='',
-               help='NetSight REST API Server IP'),
-    cfg.IntOpt('netsight_port',
+    cfg.StrOpt('emc_ip', default='',
+               help='Extreme Management Center REST API Server IP'),
+    cfg.IntOpt('emc_port',
                default='8443',
-               help='NetSight REST API Server Port'),
+               help='Extreme Management Center REST API Server Port'),
     cfg.StrOpt('scheme',
                default='https',
-               help='Scheme for the NetSight REST API, http/https'),
-    cfg.StrOpt('netsight_username',
+               help='Scheme for the Extreme Management'
+                    ' Center REST API, http/https'),
+    cfg.StrOpt('emc_username',
                default='root',
-               help='NetSight username'),
-    cfg.StrOpt('netsight_passwd',
+               help='Extreme Management Center username'),
+    cfg.StrOpt('emc_passwd',
                default='',
-               help='NetSight password'),
+               help='Extreme Management Center password'),
     cfg.BoolOpt('ssl_cert_verify',
                 default=False,
                 help='SSL certificate verification,True/False'),
@@ -40,18 +42,9 @@ EXTREME_MECHDRIVER_OPTS = [
     cfg.StrOpt('policy_domain',
                default='Default Policy Domain',
                help='Policy Domain'),
-    cfg.StrOpt('network_node_switch_ip',
-               default='',
-               help='OpenStack Network node Switch IP'),
-    cfg.IntOpt('network_node_switch_port',
-               default='',
-               help='OpenStack Network node Switch Port'),
-    cfg.StrOpt('switch_username',
-               default='admin',
-               help='Switch login user name'),
-    cfg.StrOpt('switch_password',
-               default='',
-               help='Switch login password'),
+    cfg.StrOpt('role',
+               default='Openstack Controller',
+               help='Default Role'),
     cfg.IntOpt('api_processing_delay',
                default='10',
                help='api processing delay')
@@ -59,24 +52,21 @@ EXTREME_MECHDRIVER_OPTS = [
 
 cfg.CONF.register_opts(EXTREME_MECHDRIVER_OPTS, 'ml2_extreme')
 
-NS_CONFIG = cfg.CONF.ml2_extreme
+EMC_CONFIG = cfg.CONF.ml2_extreme
 
 
-def get_netsight_config():
-    """Net Sight server configuration parameters """
+def get_emc_config():
+    """Extreme Management Center server configuration parameters."""
     config_params = {
-        'ns_server_ip': NS_CONFIG.netsight_ip,
-        'ns_server_port': NS_CONFIG.netsight_port,
-        'scheme': NS_CONFIG.scheme,
-        'ns_user_name': NS_CONFIG.netsight_username,
-        'ns_passwd': NS_CONFIG.netsight_passwd,
-        'ssl_cert_verify': NS_CONFIG.ssl_cert_verify,
-        'nac_config': NS_CONFIG.nac_config,
-        'policy_domain': NS_CONFIG.policy_domain,
-        'network_node_switch_port': NS_CONFIG.network_node_switch_port,
-        'network_node_switch_ip': NS_CONFIG.network_node_switch_ip,
-        'switch_username': NS_CONFIG.switch_username,
-        'switch_password': NS_CONFIG.switch_password,
-        'api_processing_delay': NS_CONFIG.api_processing_delay
+        'emc_server_ip': EMC_CONFIG.emc_ip,
+        'emc_server_port': EMC_CONFIG.emc_port,
+        'scheme': EMC_CONFIG.scheme,
+        'emc_user_name': EMC_CONFIG.emc_username,
+        'emc_passwd': EMC_CONFIG.emc_passwd,
+        'ssl_cert_verify': EMC_CONFIG.ssl_cert_verify,
+        'nac_config': EMC_CONFIG.nac_config,
+        'policy_domain': EMC_CONFIG.policy_domain,
+        'role': EMC_CONFIG.role,
+        'api_processing_delay': EMC_CONFIG.api_processing_delay
     }
     return config_params
