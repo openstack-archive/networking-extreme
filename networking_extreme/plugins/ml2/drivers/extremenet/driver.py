@@ -21,6 +21,7 @@ import time
 import xml.etree.ElementTree as ET
 
 from collections import OrderedDict
+from neutron_lib.api.definitions import portbindings
 from oslo_config import cfg
 from oslo_log import log
 from oslo_serialization import jsonutils
@@ -36,7 +37,6 @@ from neutron.common import constants
 from neutron.common import utils
 from neutron.db import api as db_api
 from neutron.db import models_v2
-from neutron.extensions import portbindings
 
 from neutron.plugins.ml2 import driver_api as api
 
